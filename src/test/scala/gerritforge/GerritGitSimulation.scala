@@ -16,12 +16,10 @@ class GerritGitSimulation extends Simulation {
   }
 
   val gitClone = scenario("Git clone from Gerrit").exec(cloneCommand)
-  /*
   val gitPush = scenario("Git push to Gerrit")
     .feed(feeder.circular)
     .exec(cloneCommand)
     .exec(pushCommand)
-  */
 
   setUp(
     gitPush.inject(constantConcurrentUsers(numUsers) during (10 seconds))
