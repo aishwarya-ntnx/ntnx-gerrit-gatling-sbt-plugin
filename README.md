@@ -1,19 +1,16 @@
 Gatling's SBT Gerrit Test
 =========================
 
-A simple project showing how to configure and use Gatling's SBT plugin to run Gatling simulations. 
+This test suite is built on top of the sample Gatling tests provided by GerritForge.
+The goal of this suite is to test common git operations performed by both developers and build pipelines, to validate that the 2019 gerrit update.
 
 This project uses SBT 1, which is available [here](https://www.scala-sbt.org/download.html).
 
-Get the project
----------------
-
-```bash
-git clone https://github.com/gatling/gatling-sbt-plugin-demo.git && cd gatling-sbt-plugin-demo
-```
+By default, each simulation runs with 10 "users". Each simulation is able to run for a specified amount of time.
 
 Start SBT
 ---------
+From the root (ntnx-gerrit-gatling-tests) directory, run SBT.
 ```bash
 $ sbt
 ```
@@ -29,7 +26,7 @@ Run a single simulation
 -----------------------
 
 ```bash
-> gatling:testOnly computerdatabase.BasicSimulation
+> gatling:testOnly gerritforge.GatlingGitCloneSimulation
 ```
 
 List all tasks
