@@ -26,7 +26,7 @@ Run a single simulation
 -----------------------
 
 ```bash
-> gatling:testOnly gerritforge.GatlingGitCloneSimulation
+> gatling:testOnly gerritforge.GerritGitCloneSimulation
 ```
 
 List all tasks
