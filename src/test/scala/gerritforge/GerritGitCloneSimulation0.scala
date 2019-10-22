@@ -7,7 +7,7 @@ import io.gatling.core.scenario.Simulation
 
 import scala.concurrent.duration._
 
-class GerritGitPullSimulation extends Simulation {
+class GerritGitCloneSimulation0 extends Simulation {
 
   val gitProtocol = GitProtocol()
   val numUsers    = 10
@@ -15,13 +15,12 @@ class GerritGitPullSimulation extends Simulation {
     Map("refSpec" -> s"master")
   }
 
-  val gitPull = scenario("Git push to Gerrit")
+  val gitClone = scenario("Git clone from Gerrit")
     .feed(feeder.circular)
     .exec(cloneCommand)
-    .exec(pullCommand)
 
   setUp(
-    gitPull.inject(constantConcurrentUsers(numUsers) during (10 seconds))
+    gitClone.inject(constantConcurrentUsers(numUsers) during (10 seconds))
   ).protocols(gitProtocol)
 
 }

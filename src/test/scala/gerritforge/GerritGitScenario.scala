@@ -8,6 +8,7 @@ import io.gatling.core.Predef._
 object GerritGitScenario {
 
   implicit val gitConfig = GatlingGitConfiguration()
+  implicit val addHook = Some("hooks/commit-msg")
 
   val cloneCommand = new GitRequestBuilder(
     GitRequestSession("clone", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")
@@ -20,6 +21,10 @@ object GerritGitScenario {
   val pushCommand = new GitRequestBuilder(
     GitRequestSession("push", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")
   )
+
+  val pushCRCommand = new GitRequestBuilder(
+    GitRequestSession("push", s"${testConfig.sshUrl}/${testConfig.project}", "${CRrefSpec}")
+  )(gitConfig, addHook)
 
   val pullCommand = new GitRequestBuilder(
     GitRequestSession("pull", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")

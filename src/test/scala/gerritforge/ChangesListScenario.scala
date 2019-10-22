@@ -3,6 +3,7 @@ package gerritforge
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import scala.concurrent.duration._
+import gerritforge.GerritTestConfig._
 
 object ChangesListScenario {
 
@@ -12,6 +13,8 @@ object ChangesListScenario {
     "Upgrade-Insecure-Requests" -> "1"
   )
 
+  val project = s"${testConfig.project}"
+
   def listChanges(authCookie: Option[String] = None) =
     authCookie
       .fold(exec(flushSessionCookies)) { auth =>
@@ -20,6 +23,26 @@ object ChangesListScenario {
       .exec(
         http("changes list")
           .get("/q/status:open")
+          .headers(restApiHeader)
+          .resources(
+            http("get server version")
+              .get("/config/server/version"),
+            http("get server info")
+              .get("/config/server/info"),
+            http("get list of changes")
+              .get("/changes/?O=81&S=0&n=500&q=status%3Aopen")
+          )
+      )
+      .pause(2 seconds)
+
+  def listProjectChanges(authCookie: Option[String] = None) =
+    authCookie
+      .fold(exec(flushSessionCookies)) { auth =>
+        exec(addCookie(Cookie("GerritAccount", auth).withDomain("gerrithub.io")))
+      }
+      .exec(
+        http("changes list")
+          .get("/q/status:open&project="+project)
           .headers(restApiHeader)
           .resources(
             http("get server version")

@@ -7,12 +7,12 @@ import io.gatling.core.scenario.Simulation
 
 import scala.concurrent.duration._
 
-class GerritGitPushSimulation extends Simulation {
+class GerritGitPushSimulation0 extends Simulation {
 
   val gitProtocol = GitProtocol()
   val numUsers    = 10
   val feeder = (1 to numUsers) map { idx =>
-    Map("refSpec" -> s"master")
+    Map("refSpec" -> s"gatling-test-repo")
   }
 
   val gitPush = scenario("Git push to Gerrit")

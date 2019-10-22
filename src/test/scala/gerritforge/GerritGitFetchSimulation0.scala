@@ -1,4 +1,5 @@
 package gerritforge
+package gerritforge
 
 import com.github.barbasa.gatling.git.protocol.GitProtocol
 import gerritforge.GerritGitScenario._
@@ -7,7 +8,7 @@ import io.gatling.core.scenario.Simulation
 
 import scala.concurrent.duration._
 
-class GerritGitCloneSimulation extends Simulation {
+class GerritGitFetchSimulation0 extends Simulation {
 
   val gitProtocol = GitProtocol()
   val numUsers    = 10
@@ -15,12 +16,13 @@ class GerritGitCloneSimulation extends Simulation {
     Map("refSpec" -> s"master")
   }
 
-  val gitClone = scenario("Git clone from Gerrit")
+  val gitFetch = scenario("Git fetch from Gerrit")
     .feed(feeder.circular)
     .exec(cloneCommand)
+    .exec(fetchCommand)
 
   setUp(
-    gitClone.inject(constantConcurrentUsers(numUsers) during (10 seconds))
+    gitFetch.inject(constantConcurrentUsers(numUsers) during (10 seconds))
   ).protocols(gitProtocol)
 
 }
