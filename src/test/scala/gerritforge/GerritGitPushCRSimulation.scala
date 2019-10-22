@@ -7,7 +7,7 @@ import io.gatling.core.scenario.Simulation
 
 import scala.concurrent.duration._
 
-class GerritGitPushSimulation extends Simulation {
+class GerritGitPushCRSimulation extends Simulation {
 
   val gitProtocol = GitProtocol()
   val numUsers    = 10
