@@ -13,7 +13,24 @@ object GerritGitScenario {
     GitRequestSession("clone", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")
   )
 
+  val fetchCommand = new GitRequestBuilder(
+    GitRequestSession("fetch", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")
+  )
+
   val pushCommand = new GitRequestBuilder(
     GitRequestSession("push", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")
   )
+
+  val pullCommand = new GitRequestBuilder(
+    GitRequestSession("pull", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")
+  )
+
+  val cloneBranchCommand = new GitRequestBuilder(
+    GitRequestSession("clone", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")
+  )
+
+  val fetchAllCommand = new GitRequestBuilder(
+    GitRequestSession("fetch --all", s"${testConfig.sshUrl}/${testConfig.project}", "${refSpec}")
+  )
+
 }
