@@ -1,5 +1,4 @@
 package gerritforge
-package gerritforge
 
 import com.github.barbasa.gatling.git.protocol.GitProtocol
 import gerritforge.GerritGitScenario._
